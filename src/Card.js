@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCardContext } from './CardProvider';
+import { useCardContext } from './ContextProvider';
 
 const suitMap = {
   hearts: '❤️',
@@ -8,10 +8,12 @@ const suitMap = {
   diamonds: '♦️',
 };
 
-export default function Card({ card, cardLocation }) {
-  const { selectedCard, setSelectedCard, setFrom } = useCardContext();
+
+export default function Card({ card }) {
+  const { selectedCard, setSelectedCard, setFrom, player } = useCardContext();
+
   function handleCardClick() {
-    setFrom(cardLocation);
+    setFrom(player);
     setSelectedCard(card);
   }
   
@@ -21,7 +23,7 @@ export default function Card({ card, cardLocation }) {
 
   return (
     <div className={`${thisIsTheSelectedCard ? 'selected' : ''} card`} 
-      onClick={cardLocation !== 'button' ? handleCardClick : () => {}}>
+      onClick={handleCardClick}>
       <div>{suitMap[card.suit]}</div>
       <div>{card.value}</div>
     </div>
